@@ -57,12 +57,42 @@ class ViewController: UIViewController ,UIActionSheetDelegate{
         else //ios7
         {
             println("UIAlertSheet")
+            actionSheet = UIActionSheet(title: "\n\n\n\n\n\n\n\n\n\n", delegate: self, cancelButtonTitle: nil, destructiveButtonTitle: nil )
             
+            self.datePicker.frame.origin.y = 44
+            
+            var pickerDateToolbar = UIToolbar(frame: CGRectMake(0, 0, 320, 44))
+            
+            pickerDateToolbar.barStyle = UIBarStyle.Black
+            
+            var barItems = NSMutableArray()
+            
+            var doneButton = UIBarButtonItem(title: "Done",style: UIBarButtonItemStyle.Done, target: self, action: "doneIOS7Date:")
+            
+            barItems.addObject(doneButton)
+            
+            var cancelButton = UIBarButtonItem(title: "Cancel",style: UIBarButtonItemStyle.Plain, target: self, action: "cancelIOS7Date:")
+            
+            barItems.addObject(cancelButton)
+            
+            pickerDateToolbar.setItems(barItems as [AnyObject], animated: true)
+            
+            actionSheet.addSubview(pickerDateToolbar)
+            
+            actionSheet.addSubview(datePicker)
+            
+            actionSheet.showInView(self.view)
             
         }
         
     }
-
+    func doneIOS7Date(doneButton: UIBarButtonItem){
+        println("done")
+        actionSheet.dismissWithClickedButtonIndex(0, animated: true)
+    }
+    func cancelIOS7Date(doneButton: UIBarButtonItem){
+        println("cancel")
+    }
     func dateformatterDateTime(date: NSDate) -> NSString
     {
         var dateFormatter: NSDateFormatter = NSDateFormatter()
